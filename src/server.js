@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
+const routes = require('./routes');
 
 const { db: { url }, port} = require('./config');
 
@@ -11,8 +12,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(morgan('dev'));
-
+app.use('/api/v1', routes);
 app.use(errors())
+
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
