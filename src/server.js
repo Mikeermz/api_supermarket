@@ -13,9 +13,13 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(morgan('dev'));
 
 app.use(errors())
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
-console.log('config ->', url, port)
-
-app.listen(8000, () => {
-  console.log(`Server start on port ${8000}`)
-})
+const db = mongoose.connection;
+db.on('error', (error) => console.log('FAILED to connect to mongo', error));
+db.once('open', () => {
+  console.log('SUPERMARKET API RUN ...')
+  app.listen(port, () => {
+    console.log(`Server start on port ${port}`)
+  })
+});
