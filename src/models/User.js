@@ -32,7 +32,7 @@ const UserSchema = new Schema({
   }
 }, {collection: 'users', timestamps: true});
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function (next){
   let user = this;
   if (!user.isModified('passsword')) { return next() }
   bcrypt.genSalt( SALT_FACTOR, function(err, salt) {
