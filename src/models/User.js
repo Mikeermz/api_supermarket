@@ -18,8 +18,9 @@ const UserSchema = new Schema({
     required: true
   },
   email: {
-    type: String,
-    required: true
+    type: String, 
+    required: true, 
+    index: { unique: true } 
   },
   birth_date: Date,
   is_active: {
@@ -32,13 +33,17 @@ const UserSchema = new Schema({
   }
 }, {collection: 'users', timestamps: true});
 
-UserSchema.pre('save', function (next){
+UserSchema.pre('save', function (next) {
   let user = this;
-  if (!user.isModified('passsword')) { return next() }
+
+  if (!user.isModified('password')) return next();
+
   bcrypt.genSalt( SALT_FACTOR, function(err, salt) {
     if(err) return next(err);
+
     bcrypt.hash(user.password, salt, function(err, hash) {
       if(err) return next(err);
+
       user.password = hash;
       next();
     });

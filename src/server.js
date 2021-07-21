@@ -15,7 +15,11 @@ app.use(morgan('dev'));
 app.use('/api/v1', routes);
 app.use(errors())
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(url, {
+  useCreateIndex: true, 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true
+});
 
 const db = mongoose.connection;
 db.on('error', (error) => console.log('FAILED to connect to mongo', error));
