@@ -6,7 +6,7 @@ const findUserByEmail = async (email) => {
   try {
     const user = await User.findOne({email}).exec()
 
-    if (!user) throw ({error: new Error('User not found'), messsage: 'Error Credentials'});
+    if (!user) throw ({error: new Error('User not found'), messsage: 'User not found'});
 
     return user;
   } catch (error) {
@@ -16,7 +16,7 @@ const findUserByEmail = async (email) => {
 
 const findAllUsers = async () => {
   try {
-    const users = await User.find({ },'-password').exec();
+    const users = await User.find({ }, '-password').exec();
 
     if (!users) throw ({error: new Error('Users not found'), messsage: 'Users not found'});
 
@@ -30,8 +30,20 @@ const findUserById = async (id) => {
   try {
     const user = await User.findById(id, '-password').exec()
 
-    if (!user) throw ({error: new Error('User not found'), messsage: 'Error Credentials'});
+    if (!user) throw ({error: new Error('User not found'), messsage: 'User not found'});
     
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+const updateUserById = async (id, data) => {
+  try {
+    const user = await User.findByIdAndUpdate(id, {$set: data }, {new: true})
+
+    if (!user) throw ({error: new Error('User not found'), messsage: 'User not found'});
+
     return user;
   } catch (error) {
     throw error;
@@ -42,5 +54,6 @@ module.exports = {
   createUser,
   findUserByEmail,
   findAllUsers,
-  findUserById
+  findUserById,
+  updateUserById
 };
