@@ -8,12 +8,11 @@ module.exports = async (req, res, next) => {
 	try {
 		if (AUTH) {
 			const token = AUTH.replace('SPM ', "");
-			console.log(token)
 			const payload = JWT.verify(token, SECRET_KEY);
-			console.log(payload)
+
 			if (payload) {
 				const { email } = payload;
-				console.log(email)
+
 				const user =  await userService.findUserByEmail(email);
 
 				req.user = user;
