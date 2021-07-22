@@ -16,7 +16,7 @@ const findUserByEmail = async (email) => {
 
 const findAllUsers = async () => {
   try {
-    const users = await User.find().exec();
+    const users = await User.find({ },'-password').exec();
 
     if (!users) throw ({error: new Error('Users not found'), messsage: 'Users not found'});
 
@@ -26,8 +26,21 @@ const findAllUsers = async () => {
   }
 }
 
+const findUserById = async (id) => {
+  try {
+    const user = await User.findById(id, '-password').exec()
+
+    if (!user) throw ({error: new Error('User not found'), messsage: 'Error Credentials'});
+    
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createUser,
   findUserByEmail,
-  findAllUsers
+  findAllUsers,
+  findUserById
 };
