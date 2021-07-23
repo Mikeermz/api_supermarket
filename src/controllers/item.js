@@ -25,7 +25,61 @@ const findByName = async (req, res) => {
   }
 };
 
+const fetchItems = async (req, res) => {
+  try {
+    const items = await itemService.findAllItems();
+
+    res.status(200).send({items});
+  } catch (error) {
+    console.error(error);
+    res.status(400).json(error);
+  }
+}
+
+const findItemById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const item = await itemService.findItemById(id)
+
+    res.status(202).send({item});
+  } catch (error) {
+    console.error(error);
+    res.status(400).json(error);
+  }
+}
+
+const updatItemById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body
+
+    const item = await itemService.updateItemById(id, body);
+
+    res.status(202).send({item});
+  } catch (error) {
+    console.error(error);
+    res.status(400).json(error);
+  }
+};
+
+const deleteItemById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const item = await itemService.deleteItemById(id);
+
+    res.status(200).send({item});
+  } catch (error) {
+    console.error(error);
+    res.status(400).json(error);
+  }
+};
+
 module.exports = {
   create,
-  findByName
+  findByName,
+  fetchItems,
+  findItemById,
+  updatItemById,
+  deleteItemById
 }

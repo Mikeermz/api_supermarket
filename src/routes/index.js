@@ -10,6 +10,6 @@ const itemRoutes = require('./item');
 router.use(homeRoutes);
 router.use('/signup', signUpRoutes);
 router.use('/user', AuthMiddleware, userRoutes);
-router.use('/item', AuthMiddleware, itemRoutes);
+router.use('/item', itemRoutes);
 
 module.exports =  router;

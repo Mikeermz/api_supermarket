@@ -6,10 +6,9 @@ const { itemController } = require('../controllers');
 
 router.post('/', itemValidator.create, itemController.create);
 router.get('/', itemValidator.findByName, itemController.findByName);
-
-// router.get('/all', userController.findUsers);
-// router.get('/:id', userController.findUserById);
-// router.put('/:id', userValidator.update, userController.updateUserById);
-// router.delete('/:id', userValidator.update, userController.deleteUserById);
+router.get('/all', itemController.fetchItems);
+router.get('/:id', itemController.findItemById);
+router.put('/:id', itemController.updatItemById);
+router.delete('/:id', itemController.deleteItemById);
 
 module.exports = router;
