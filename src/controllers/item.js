@@ -13,8 +13,11 @@ const create = async (req, res) => {
 
 const findByName = async (req, res) => {
   try {
-    // const item = await itemService.findItemByName();
-    
+    // console.log(req.query);
+    const { name } = req.query;
+
+    const item = await itemService.findItemByName(name);
+
     res.status(202).send({item});
   } catch (error) {
     console.error(error);
