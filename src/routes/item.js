@@ -5,6 +5,7 @@ const { itemValidator } = require('../validators');
 const { itemController } = require('../controllers');
 
 router.post('/', itemValidator.create, itemController.create);
+router.get('/', itemValidator.findByName, itemController.findByName);
 
 // router.get('/all', userController.findUsers);
 // router.get('/:id', userController.findUserById);
