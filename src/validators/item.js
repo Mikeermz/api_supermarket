@@ -8,6 +8,13 @@ const create = celebrate({
   }
 });
 
+const findByName = celebrate({
+  [Segments.QUERY] :{
+    name: Joi.string().required(),
+  }
+});
+
 module.exports = {
-  create
+  create,
+  findByName
 }
